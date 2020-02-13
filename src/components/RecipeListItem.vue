@@ -1,24 +1,27 @@
 <template>
   <div>
-    <router-link :to="{ name: 'cocktail', params: { id } }">
-      <img :src="imageUrl" :alt="title" />
-      <h1>{{ title }}</h1>
+    <router-link :to="{ name: 'cocktail', params: { id: recipe.id } }">
+      <img v-if="recipe.imageUrl" :src="recipe.imageUrl" :alt="recipe.title" />
+      <h1>{{ recipe.title || recipe.id }}</h1>
     </router-link>
-    <p>{{ description }}</p>
-    <button @click="$emit('recipeClick', id)">{{ actionButtonText }}</button>
+    <p v-if="recipe.description">{{ recipe.description }}</p>
+    <button @click="$emit('recipeClick', recipe.id)">{{ actionButtonText }}</button>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    id: {
-      type: String,
-      required: true
+    recipe: {
+      type: Object,
+      required: true,
+      validator(value) {
+        if (!value.id) {
+          return false;
+        }
+        return true;
+      }
     },
-    title: String,
-    description: String,
-    imageUrl: String,
     actionButtonText: String
   }
 };

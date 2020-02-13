@@ -5,15 +5,15 @@
       <ul class="recipeList">
         <li v-for="recipe in recipes">
           <RecipeListItem
-            :title="recipe.title"
-            :description="recipe.description"
-            :imageUrl="recipe.imageUrl"
-            :id="recipe.id"
+            :recipe="recipe"
             actionButtonText="Add to favourites"
             @recipeClick="addToFavourites"
           ></RecipeListItem>
         </li>
       </ul>
+    </section>
+    <section v-else>
+      No recipes found
     </section>
   </div>
 </template>

@@ -5,10 +5,7 @@
       <ul class="recipeList">
         <li v-for="recipe in recipes">
           <RecipeListItem
-            :title="recipe.title"
-            :description="recipe.description"
-            :imageUrl="recipe.imageUrl"
-            :id="recipe.id"
+            :recipe="recipe"
             actionButtonText="Remove from favourites"
             @recipeClick="removeFromFavourites"
           ></RecipeListItem>
