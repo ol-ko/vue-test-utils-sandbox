@@ -1,7 +1,7 @@
 <template>
   <div>
+    <h1>Favourites</h1>
     <section v-if="recipes.length > 0">
-      <h1>All recipes</h1>
       <ul class="recipeList">
         <li v-for="recipe in recipes">
           <RecipeListItem
@@ -9,11 +9,14 @@
             :description="recipe.description"
             :imageUrl="recipe.imageUrl"
             :id="recipe.id"
-            actionButtonText="Add to favourites"
-            @recipeClick="addToFavourites"
+            actionButtonText="Remove from favourites"
+            @recipeClick="removeFromFavourites"
           ></RecipeListItem>
         </li>
       </ul>
+    </section>
+    <section v-else>
+      <p>No favourites yet</p>
     </section>
   </div>
 </template>
@@ -22,19 +25,16 @@
 import RecipeListItem from '@/components/RecipeListItem.vue';
 
 export default {
-  name: 'Home',
+  name: 'Favourites',
   components: { RecipeListItem },
   computed: {
     recipes() {
-      return this.$store.state.allRecipes;
+      return this.$store.state.favouriteRecipes;
     }
   },
-  mounted() {
-    this.$store.dispatch('fetchAllRecipes');
-  },
   methods: {
-    addToFavourites(recipeId) {
-      this.$store.commit('addToFavourites', recipeId);
+    removeFromFavourites(recipeId) {
+      this.$store.commit('removeFromFavourites', recipeId);
     }
   }
 };
